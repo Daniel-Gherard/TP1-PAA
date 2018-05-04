@@ -1,0 +1,31 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import sys
+
+# Imports Próprios:
+import arquivos
+import arvore
+
+if __name__ == "__main__":
+    arquivos.verificar_argumentos(sys.argv)
+    arquivo_entrada = arquivos.abrir_arquivo_entrada()
+
+    dictionary = {}
+    m = 0
+    n = 0
+
+    grafo = arquivos.ler_arquivo_e_popular_grafo(arquivo_entrada, dictionary, m, n)
+
+    caminhos = []
+    indexes = []
+    pesos = []
+
+    arvore.busca_em_profundidade_iterativo(grafo, 1, grafo.n, caminhos)
+
+    # arvore.busca_em_profundidade(grafo, 1, grafo.n, caminhos)
+
+    grafo.get_todas_as_arestas_indexes(caminhos, indexes, pesos)
+
+    arquivos.imprimir_arquivo_de_saida(sys.argv[2], indexes, pesos)
+
+    arquivo_entrada.close()
